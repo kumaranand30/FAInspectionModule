@@ -80,5 +80,24 @@ namespace FAInspectionModuleMVCBusinessLayer.FAInspectionModuleMVCBusinessManage
             deptBL = GetParameterListForDept(parameter.DeptID);
             return deptBL;
         }
+
+        public List<BO.InspectionProcess> GetProcessAgainstDepartment(int deptID)
+        {
+            DataTable deptDL = new DataTable();
+            deptDL = db.GetProcessAgainstDepartment(deptID);
+            List<BO.InspectionProcess> deptBL = new List<BO.InspectionProcess>();
+
+            if (deptDL.Rows.Count != 0)
+            {
+                foreach (DataRow row in deptDL.Rows)
+                {
+                    BO.InspectionProcess dept = new BO.InspectionProcess();
+                    dept.ProcessID = Convert.ToInt32(row["ProcessID"]);
+                    dept.ProcessName = Convert.ToString(row["Process"]);
+                    deptBL.Add(dept);
+                }
+            }
+            return deptBL;
+        }
     }
 }

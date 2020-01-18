@@ -122,7 +122,7 @@ namespace FAInspectionModuleMVCBusinessLayer.FAInspectionModuleMVCBusinessManage
             DataTable deptDL = new DataTable();
             int id = 0;
             string message = "";
-            deptDL = db.AddInspectionDetailsForCutting(insp.WONO, insp.SrNO, insp.WOYear, insp.SpecialInstruction, insp.VerificationBY,  insp.AddedBY, insp.DeptID);
+            deptDL = db.AddInspectionDetailsForCutting(insp.WONO, insp.SrNO, insp.WOYear, insp.SpecialInstruction, insp.VerificationBY,  insp.AddedBY, insp.DeptID, insp.ProcessID);
             if (deptDL.Rows.Count != 0)
             {
                 foreach (DataRow row in deptDL.Rows)

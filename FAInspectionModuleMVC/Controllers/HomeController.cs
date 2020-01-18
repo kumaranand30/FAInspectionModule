@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using BO = FAInspectionModuleMVCEntities.BusinessEntities;
 using LBM = FAInspectionModuleMVCBusinessLayer.FAInspectionModuleMVCBusinessManager.Login.Login ;
+using FAInspectionModuleMVC.Filters;
+using BL = FAInspectionModuleMVCBusinessLayer.FAInspectionModuleMVCBusinessManager.InspectionParameterList;
 
 namespace FAInspectionModuleMVC.Controllers
 {
@@ -70,6 +72,11 @@ namespace FAInspectionModuleMVC.Controllers
 
                 RememberMe(name, pass, rememberme);
                 //  return RedirectToAction("Dashboard");
+                BL.InspectionParameterList list = new BL.InspectionParameterList();
+                List<BO.InspectionDepartment> dept = new List<BO.InspectionDepartment>();
+                dept = list.GetDepartmentForInspection();
+                ViewBag.list = "abcd";
+                ViewBag.Menulist = dept; 
                 return RedirectToAction("DepartmentWiseList", "InspectionList");
             }
             else
@@ -111,6 +118,17 @@ namespace FAInspectionModuleMVC.Controllers
         {
             Session.Abandon();
             return RedirectToAction("index", "Home");
+        }
+
+        [UserAuthenticationFilter]
+        public JsonResult SideMenu()
+        {
+            BL.InspectionParameterList list = new BL.InspectionParameterList();
+            List<BO.InspectionDepartment> dept = new List<BO.InspectionDepartment>();
+            dept = list.GetDepartmentForInspection();
+            ViewBag.Menulist = dept;
+            return Json(dept, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

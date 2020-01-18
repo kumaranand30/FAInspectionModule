@@ -429,7 +429,7 @@ namespace FAInspectionModuleMVCDataLayer
 
 
         public DataTable AddInspectionDetailsForCutting(string wono, string srNO, string woYear, string splInstruction, int verifiedBY,
-            int addedBY, int deptID)
+            int addedBY, int deptID,int processID)
         {
             FAC.DBConnection objConn = new FAC.DBConnection();
             using (SqlConnection connection = objConn.GetConnection)
@@ -451,7 +451,7 @@ namespace FAInspectionModuleMVCDataLayer
                     objCommand.Parameters.AddWithValue("@VerifiedBy", verifiedBY); 
                     objCommand.Parameters.AddWithValue("@AddedBy", addedBY);
                     objCommand.Parameters.AddWithValue("@DeptID", deptID);
-                   
+                    objCommand.Parameters.AddWithValue("@ProcessID", processID);
                     objCommand.CommandType = CommandType.StoredProcedure;
 
                     DataTable dtLoginDetails = new DataTable();
@@ -659,6 +659,48 @@ namespace FAInspectionModuleMVCDataLayer
             }
 
         }
+
+
+        public DataTable GetProcessAgainstDepartment(int deptID)
+        {
+            FAC.DBConnection objConn = new FAC.DBConnection();
+            using (SqlConnection connection = objConn.GetConnection)
+            {
+                //connection.Open();
+                try
+                {
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+                    sqlCommandSting = "USP_GetProcessAgainstDepartment";
+                    SqlCommand objCommand = new SqlCommand(sqlCommandSting, connection);
+                    objCommand.CommandType = CommandType.StoredProcedure;
+                    objCommand.Parameters.AddWithValue("@DeptID", deptID);
+                    objCommand.CommandType = CommandType.StoredProcedure;
+
+                    DataTable dtLoginDetails = new DataTable();
+
+                    using (SqlDataAdapter _Data = new SqlDataAdapter())
+                    {
+                        _Data.SelectCommand = objCommand;
+                        _Data.Fill(dtLoginDetails);
+                    }
+                    connection.Close();
+                    return dtLoginDetails;
+                }
+                catch (Exception ex)
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                    throw ex;
+                }
+            }
+
+        }
+
 
     }
 }

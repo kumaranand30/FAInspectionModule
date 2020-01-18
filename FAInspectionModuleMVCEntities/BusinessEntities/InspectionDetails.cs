@@ -16,6 +16,7 @@ namespace FAInspectionModuleMVCEntities.BusinessEntities
         public string CheckedBY { get; set; }
         public int AddedBY { get; set; }
         public int DeptID { get; set; }
+        public int ProcessID { get; set; }
      
     }
 }

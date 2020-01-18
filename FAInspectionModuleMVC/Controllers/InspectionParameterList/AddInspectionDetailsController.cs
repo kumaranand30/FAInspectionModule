@@ -125,5 +125,13 @@ namespace FAInspectionModuleMVC.Controllers.InspectionParameterList
             dt = addBM.DeleteInspectionDetails(autoID, deleteby, deptID);
             return Json(dt, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult GetProcessAgainstDepartment(int deptID)
+        {
+            List<BO.InspectionProcess> pro = new List<BO.InspectionProcess>();
+            pro = para.GetProcessAgainstDepartment(deptID);
+            return Json(pro, JsonRequestBehavior.AllowGet);
+        }
     }
 }

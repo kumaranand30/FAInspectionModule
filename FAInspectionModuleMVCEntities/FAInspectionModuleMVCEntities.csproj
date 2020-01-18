@@ -44,6 +44,7 @@
     <Compile Include="BusinessEntities\DeptWiseParameter.cs" />
     <Compile Include="BusinessEntities\InspectionDepartment.cs" />
     <Compile Include="BusinessEntities\InspectionDetails.cs" />
+    <Compile Include="BusinessEntities\InspectionProcess.cs" />
     <Compile Include="BusinessEntities\InspectionSummaryList.cs" />
     <Compile Include="BusinessEntities\LoginDetails.cs" />
     <Compile Include="BusinessEntities\Operator.cs" />

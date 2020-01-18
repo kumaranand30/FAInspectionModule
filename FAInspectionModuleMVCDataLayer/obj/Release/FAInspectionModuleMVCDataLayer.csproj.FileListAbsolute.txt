@@ -1,0 +1,7 @@
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDataLayer\bin\Release\FAInspectionModuleMVCDataLayer.dll
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDataLayer\bin\Release\FAInspectionModuleMVCDataLayer.pdb
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDataLayer\bin\Release\FAInspectionModuleMVCDBConnector.dll
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDataLayer\bin\Release\FAInspectionModuleMVCDBConnector.pdb
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDataLayer\obj\Release\FAInspectionModuleMVCDataLayer.csprojResolveAssemblyReference.cache
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDataLayer\obj\Release\FAInspectionModuleMVCDataLayer.dll
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDataLayer\obj\Release\FAInspectionModuleMVCDataLayer.pdb

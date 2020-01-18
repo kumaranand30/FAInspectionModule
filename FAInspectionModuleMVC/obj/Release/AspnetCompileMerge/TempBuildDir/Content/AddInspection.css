@@ -1,0 +1,15 @@
+﻿body {
+}
+
+table{
+    width:100% !important;
+    min-width: 50% !important;
+}
+
+#updateDetails{
+    display: none;
+}
+
+#fullDescription{
+    resize: none !important;
+}

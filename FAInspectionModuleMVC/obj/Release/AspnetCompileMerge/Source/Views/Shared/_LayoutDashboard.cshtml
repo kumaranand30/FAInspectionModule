@@ -1,0 +1,483 @@
+﻿<!doctype html>
+
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="msapplication-TileColor" content="#0061da">
+    <meta name="theme-color" content="#1643a3">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    @* <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />*@
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/Phoenix-logo-Bird.png">
+
+
+    <!-- Title -->
+    <title>Inspection Module</title>
+    <link rel="stylesheet" href="~/fonts/fonts/font-awesome.min.css">
+
+
+    <!-- Font Family-->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700" rel="stylesheet">
+
+    <!-- Sidemenu Css -->
+    <link href="~/plugins/fullside-menu/css/style.css" rel="stylesheet" />
+    <link href="~/plugins/fullside-menu/waves.min.css" rel="stylesheet" />
+
+    <!-- Dashboard Css -->
+    <link href="~/css/dashboard.css" rel="stylesheet" />
+
+    <!-- c3.js Charts Plugin -->
+    <link href="~/plugins/charts-c3/c3-chart.css" rel="stylesheet" />
+
+    <!-- Morris.js Charts Plugin -->
+    <link href="~/plugins/morris/morris.css" rel="stylesheet" />
+
+    <!-- Custom scroll bar css-->
+    <link href="~/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+    <!---Font icons-->
+    <link href="~/plugins/iconfonts/plugin.css" rel="stylesheet" />
+
+    <!-- Data table css -->
+    <link href="~/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+    <!-- Slect2 css -->
+    <link href="~/plugins/select2/select2.min.css" rel="stylesheet" />
+
+    <!-- Tabs Style -->
+    <link href="~/plugins/tabs/style.css" rel="stylesheet" />
+    @*added for order controller*@
+    <script src="~/js/jquery-1.7.1.min.js"></script>
+
+
+
+
+
+
+</head>
+<body class="">
+    <div id="global-loader"></div>
+    <div class="page">
+        <div class="page-main" id="page-main">
+            <div class="app-header1 header py-1 d-flex">
+                <div class="container-fluid">
+                    <div class="container-fluid">
+                        <div class="d-flex">
+                            <a class="header-brand" href="#">
+                                @*<span class="font-weight-semibold" style="font-size: 25px;color: white;">
+                                        VMS
+                                    </span>*@
+                                @*<img src="~/images/logo.png" class="header-brand-img" alt="Plight logo">*@
+                                @*<span style="font-size: 10px;color: white;margin:auto">
+                                        Visitor Management System
+                                    </span>*@
+                                <span class="font-weight-semibold" style="font-size: 25px;color: white;">
+                                    FA 
+                                </span>
+                            </a>
+
+                            <div class="menu-toggle-button">
+                                <a class="nav-link wave-effect" href="#" id="sidebarCollapse">
+                                    <span class="fa fa-bars"></span>
+                                </a>
+                            </div>
+                            <div class="mt-2">
+                                <div class="searching mt-3 ml-2">
+
+                                    <a href="javascript:void(0)" class="search-open mt-3">
+                                        <i class="fa fa-search text-white"></i>
+                                    </a>
+
+
+                                    <div class="search-inline">
+                                        <form>
+                                            <input type="text" class="form-control" placeholder="Search here">
+                                            <button type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                            <a href="javascript:void(0)" class="search-close">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex order-lg-2 ml-auto">
+                                <div class="dropdown d-none d-md-flex mt-1">
+                                    <a class="nav-link icon full-screen-link">
+                                        <i class="fe fe-maximize floating" id="fullscreen-button"></i>
+                                    </a>
+                                </div>
+
+
+                                <div class="dropdown mt-1">
+                                    <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                                        <span class="avatar avatar-md brround" style="background-image: url(/images/document.png)"></span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
+                                        <div class="text-center">
+                                            <a href="#" class="dropdown-item text-center font-weight-sembold user" id="userName">@Session["FA_userName"].ToString()</a>
+
+                                            <div class="dropdown-divider"></div>
+                                        </div>
+
+                                        <a class="dropdown-item" href="@Url.Action("Logout", "Home")">
+                                            <i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="wrapper">
+                <!-- Sidebar Holder -->
+                <nav id="sidebar" class="nav-sidebar">
+                    <ul class="list-unstyled components" id="accordion">
+                        <div class="user-profile">
+                            <div class="dropdown user-pro-body">
+                                <div>
+                                    @*<img src="~/images/img_avatar.png" alt="user-img" class="img-circle">*@
+                                    <img src="~/images/document.png" alt="user-img" class="img-circle">
+                                </div>
+                                <div class="mb-2">
+                                    <a href="#" class="" data-toggle="" aria-haspopup="true" aria-expanded="false"> <span class="font-weight-semibold">@Session["FA_userName"].ToString()</span>  </a>
+                                    <br><span class="text-gray">@Session["FA_DepType"].ToString()</span>
+                                </div>
+                                @*<a href="#" title="settings" class="user-button"><i class="fa fa-cogs"></i></a>
+                                    <a href="#" title="mail" class="user-button"><i class="fa fa-envelope"></i></a>*@
+                                <a href="@Url.Action("Logout", "Home")" title="logout" class="user-button"><i class="fa fa-sign-out"></i></a>
+                            </div>
+                        </div>
+                        @*<li class="">
+                                <a href="#homeSubmenu" onclick="setDefaultHeight()" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+                                    <i class="fa fa-user mr-2"></i> BL
+                                </a>
+                                <ul class="collapse list-unstyled" onclick="setDefaultHeight()" id="homeSubmenu" data-parent="#accordion">
+
+                                    <li><a href="/BL/BLSummary">BL Summary</a></li>
+                                    <li><a href="/Master/MasterSummary">GST Summary</a></li>
+
+
+                                </ul>
+                            </li>*@
+                        <li class="">
+                            <a href="#homeSubmenu" onclick="setDefaultHeight()" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+                                <i class="fa fa-plus  mr-2"></i> Inspection Parameters
+                            </a>
+                            <ul class="collapse list-unstyled" onclick="setDefaultHeight()" id="homeSubmenu" data-parent="#accordion">
+                                <li><a href="/InspectionList/DepartmentWiseList">Department Wise</a></li>
+
+
+
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#homeSubmenu1" onclick="setDefaultHeight()" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+                                <i class="fa fa-th-list  mr-2"></i>Add Inspection Dept. wise
+                            </a>
+                            <ul class="collapse list-unstyled" onclick="setDefaultHeight()" id="homeSubmenu1" data-parent="#accordion">
+                                <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Cutting & Arising" })">Cutting & Arising</a></li>
+                                
+                                <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Fabrication" })">Fabrication</a></li>
+                                <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Ceramic" })">Ceramic</a></li>
+                                <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Lamination" })">Lamination</a></li>
+                                <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Insulated Glass" })">Insulated Glass</a></li>
+                                <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Heat Soak" })">Heat Soak</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="">
+                            <a href="#homeSubmenu2" onclick="setDefaultHeight()" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+                                <i class="fa fa-bar-chart  mr-2"></i>Reports
+                            </a>
+                            <ul class="collapse list-unstyled" onclick="setDefaultHeight()" id="homeSubmenu2" data-parent="#accordion">
+                                <li><a href="/Reports/ReportView">Department Wise</a></li>
+
+                              </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+
+                <div class="content-area">  @RenderBody() </div>
+            </div>
+        </div>
+        <!--footer-->
+        <footer class="footer footer_wrap">
+            <div class="container">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
+                        Copyright © @DateTime.Now.Year <a href="https://phoenixkreations.com">Phoenix Technosoft Kreations Pvt. Ltd.</a> All rights reserved.
+                    </div>
+                    <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center black">
+                        FA is best viewed with Google chrome <i class="fa fa-chrome"></i>.
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer-->
+    </div>
+
+    <script type="text/javascript">
+        function setDefaultHeight() {
+            var elmnt = document.getElementById("page-main");
+            var height = 0;
+
+            if (elmnt.scrollHeight) {
+                height = elmnt.scrollHeight;
+            }
+            else {
+                height = $("#page-main").height();
+
+            }
+            ////height = $(".page-main").height();
+            height = height - 62;
+            $("#sidebar").height(height + "px");
+        }
+
+        $(window).on("scroll", function (e) {
+            var elmnt = document.getElementById("page-main");
+            var height = 0;
+            height = elmnt.scrollHeight;
+            if ($(this).scrollTop() > height) {
+                setDefaultHeight();
+            } else {
+                setDefaultHeight();
+            }
+        });
+        $(function (e) {
+            $('#example').DataTable();
+        });
+
+        $('#example').DataTable({
+            retrieve: true,
+            paging: false
+
+
+        });
+
+
+    </script>
+
+    <!-- Back to top -->
+    <a href="#top" id="back-to-top" style="display: inline;"><i class="fa fa-angle-up"></i></a>
+
+    <!-- Dashboard Core -->
+    <script src="~/js/vendors/jquery-3.2.1.min.js"></script>
+    @* code for autocomplete*@
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+    @* code for autocomplete*@
+    <script src="~/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="~/js/vendors/jquery.sparkline.min.js"></script>
+    <script src="~/js/vendors/selectize.min.js"></script>
+    <script src="~/js/vendors/jquery.tablesorter.min.js"></script>
+    <script src="~/js/vendors/circle-progress.min.js"></script>
+    <script src="~/plugins/rating/jquery.rating-stars.js"></script>
+
+    <!-- Fullside-menu Js-->
+    <script src="~/plugins/fullside-menu/jquery.slimscroll.min.js"></script>
+    <script src="~/plugins/fullside-menu/waves.min.js"></script>
+
+    <!-- Echarts Js-->
+    <script src="~/plugins/echarts/echarts.js"></script>
+    <script src="~/js/index1.js"></script>
+
+    <!--Morris.js Charts Plugin -->
+    <script src="~/plugins/am-chart/amcharts.js"></script>
+    <script src="~/plugins/am-chart/serial.js"></script>
+
+    <!-- Custom scroll bar Js-->
+    <script src="~/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- Data tables -->
+    <script src="~/plugins/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+
+
+    <!-- Select2 js -->
+    <script src="~/plugins/select2/select2.full.min.js"></script>
+
+
+    <!-- Custom Js-->
+    <script src="~/js/custom.js"></script>
+
+    <!-- Inline js -->
+    <script src="~/js/select2.js"></script>
+
+
+    <!-- Data table js -->
+    @*Export to exel ,pdf and csv for Datatable *@
+
+    <link href="~/css/buttons.dataTables.css" rel="stylesheet" />
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/pdfmake.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/buttons.print.min.js"></script>
+    @*Export to exel ,pdf and csv for Datatable *@
+
+    <script type="text/javascript">
+        function setDefaultHeight() {
+            var elmnt = document.getElementById("page-main");
+            var height = 0;
+
+            if (elmnt.scrollHeight) {
+                height = elmnt.scrollHeight;
+            }
+            else {
+                height = $("#page-main").height();
+
+            }
+            ////height = $(".page-main").height();
+            height = height - 62;
+            $("#sidebar").height(height + "px");
+        }
+
+        $(window).on("scroll", function (e) {
+            var elmnt = document.getElementById("page-main");
+            var height = 0;
+            height = elmnt.scrollHeight;
+            if ($(this).scrollTop() > height) {
+                setDefaultHeight();
+            } else {
+                setDefaultHeight();
+            }
+        });
+        $(function (e) {
+            $('#example').DataTable();
+
+        });
+
+        $('#example').DataTable({
+            //  retrieve: true,
+            paging: false,
+            "order": []
+            // "order": [[3, "desc"]]
+        });
+
+
+    </script>
+
+
+    <script>
+        $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
+    </script>
+
+    <!-- Bootstrap DatePicker -->
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>*@
+    @*<link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+        <script src="~/js/bootstrap-datepicker.js"></script>*@
+
+
+    <link href="~/css/DateTimePickerBL.css" rel="stylesheet" />
+
+    <script src="~/js/DateTimePickerForBL.js"></script>
+
+    <link href="~/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <script src="~/js/bootstrap-datepicker.js"></script>
+
+    <!---Tabs JS-->
+    <script src="~/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
+
+    <!-- Bootstrap DatePicker -->
+    <script type="text/javascript">
+        $(function () {
+
+            $('#datePicker')
+                .datepicker({
+                    autoclose: true,
+                    todayHighlight: true,
+                    format: 'dd M yyyy',
+                    language: "tr",
+                    changeMonth: true,
+                    changeYear: true,
+                })
+                .on('changeDate', function (e) {
+                    // Revalidate the date field
+                    // $('#eventForm').formValidation('revalidateField', 'date');
+                    $('.datepicker').hide();
+                });
+            $('#txtigmdate')
+           .datepicker({
+               autoclose: true,
+               todayHighlight: true,
+               format: 'dd M yyyy',
+               language: "tr",
+               changeMonth: true,
+               changeYear: true,
+           })
+           .on('changeDate', function (e) {
+               // Revalidate the date field
+               // $('#eventForm').formValidation('revalidateField', 'date');
+               //$('.datepicker').hide();
+           });
+
+        });
+    </script>
+    <script>
+        $(function () {
+            var currDate = new Date();
+            $(".form_datetime1").datetimepicker({
+                autoclose: true,
+                todayHighlight: true,
+                format: 'dd M yyyy hh:ii',
+                language: "tr",
+                changeMonth: true,
+                changeYear: true,
+                forceParse: true,
+                endDate: currDate
+            })
+             .on('changeDate', function (e) {
+                 // Revalidate the date field
+                 // $('#eventForm').formValidation('revalidateField', 'date');
+                 $('.datetimepicker').hide();
+             });
+            ;
+        });
+    </script>
+
+
+    <!---Tabs scripts-->
+    <script>
+        $(function (e) {
+            $(".first_tab").champ();
+            $(".accordion_example").champ({
+                plugin_type: "accordion",
+                side: "left",
+                active_tab: "3",
+                controllers: "true"
+            });
+
+            $(".second_tab").champ({
+                plugin_type: "tab",
+                side: "right",
+                active_tab: "1",
+                controllers: "false"
+            });
+
+        });
+    </script>
+
+</body>
+</html>

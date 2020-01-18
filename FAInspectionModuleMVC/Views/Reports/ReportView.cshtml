@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "ReportView";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+ 
+
+<div class="content-area">
+    <div class="page-header">
+        <h4 class="page-title">Report View <label class="page-title" id="count"></label></h4>
+
+        <div class="form-group">
+            <label class="form-label"></label>
+            <div class="row gutters-xs">
+                <div class="col">
+                    @*<button type="button" class="btn btn-icon btn-orange" name="gst" title="GST" id="gst"><i class="fa fa-google"></i></button>*@
+                    @*<button type="button" class="btn btn-icon btn-teal" name="summarylist" title="Summary list" id="summarylist" onclick="ViewSummaryList()"><i class="fa fa-file-text"></i></button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="col-lg-12 col-sm-12 row">
+            <form class="card">
+                @*<div class="card-header">
+                        <h3 class="card-title"></h3>
+                    </div>*@
+                <div class="card-body row">
+                    <div class="form-group  col-lg-4 col-xl-4 col-md-6 " id="departmentList">
+
+                    </div>
+                    <div class="wd-200 mg-b-30 mr-2">
+                        <label class="form-label">From </label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                                </div>
+                            </div><input class="form-control datepicker" id="fromDate" placeholder="dd-MMM-yyyy" type="text">
+                        </div>
+                    </div> 
+                 
+
+                    <div class="wd-200 mg-b-30 mr-2">
+                        <label class="form-label">To </label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+
+                                <div class="input-group-text">
+                                    <i class="fa fa-calendar tx-16 lh-0 op-6"></i>
+                                </div>
+                            </div><input class="form-control datepicker1" id="toDate" placeholder="dd-MMM-yyyy" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group mr-2">
+                        <label class="form-label">WoNo</label>
+                        <input type="text" class="form-control" id="wono" placeholder="WoNo">
+                    </div>
+                    <div class="form-group mr-2">
+                        <label class="form-label mt-2"> </label>
+                        <button type="button" onclick="onListViewSearch()" class="btn btn-icon btn-primary mt-4" name="search" title="Search" id="search"><i class="fa fa-search"></i></button>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title" id="deptHeaderLBL"></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" id="reportSummary">
+
+
+                        </div>
+
+                    </div>
+                    <!-- table-wrapper -->
+                </div>
+                <!-- section-wrapper -->
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var deptID;
+    var department;
+    window.onload = function () {
+      
+        getDepartmentList();
+        var today = new Date();
+        var date = (today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate())
+
+        var currDate = new Date();
+        $("#fromDate").val(date)
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: currDate,
+            autoclose: true,
+        });
+
+        $("#toDate").val(date)
+        $('.datepicker1').datepicker({
+            format: 'yyyy-mm-dd',
+            endDate: currDate,
+            autoclose: true,
+        });
+  
+
+    };
+    function getDepartmentList() {
+        //var cotainerName = $("#txtAdd").val();
+        $.ajax(
+           {
+               url: "/InspectionList/GetDepartmentForInspection",
+               //data: '{cotainerName: ' + JSON.stringify(cotainerName) + '}',
+               type: "POST",
+               contentType: "application/json; charset=utf-8",
+               success: function (data) {
+                   department = JSON.stringify(data);
+                   getDepartment(data);
+                 
+                 
+               
+
+
+               },
+
+               error: function (message) {
+
+                   alert(JSON.stringify(message.responseText));
+
+
+               }
+           });
+    }
+
+    function getDepartment(data) {
+        if (data != null) {
+            deptList = data;
+            var select = "<label class=\"form-label\">Select Department</label>" +
+                    "<select class=\"form-control select2 custom-select\" data-placeholder=\"Choose one\" onchange=\"getParameterForDept()\" id=\"depts\">";
+            var option = "";
+            $.each(data, function (i, item) {
+
+                option += " <option value=\"" + item.DeptID + "\" onchange=\"getParameterForDept(" + item.DeptID + ")\" >" + item.DeptName + "</option>"
+
+            });
+
+            select += option += "</select>";
+            $("#departmentList").html(select);
+            setTimeout(function () {
+                  deptID = $("#depts").val();
+                  console.log(deptID);
+                  console.log(department)
+            }, 30);
+
+            
+
+        }
+    }
+
+    function getParameterForDept(id) {
+        deptID = $("#depts").val();
+    }
+
+    function onListViewSearch() {
+        $("#sidebar").height('87vh'); 
+        var woNO = $("#wono").val();
+        var from = $("#fromDate").val();
+        var to = $("#toDate").val();
+        if (woNO == undefined || woNO == "") {
+            woNO = "  ";
+        }
+        //document.getElementById("updateDetails").style.display = "none" ,wono: ' + (wono) + ',from: ' + (from) + ',to: ' + (to) + ';
+    
+        $.ajax(
+               {
+                   url: "/Reports/GetInspectionSummaryListFiltered",
+                   data: '{deptID: ' + deptID + ',wono: ' + JSON.stringify(woNO) + ',from:' + JSON.stringify(from) + ',to:' + JSON.stringify(to) + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       console.log(data);
+                       getSummaryList(data);
+
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+
+    }
+
+    function getSummaryList(data) {
+        if (data != null) {
+            listOFInspec = data;
+            $("#reportSummary").html("");
+            //document.getElementById("#parametersummary").innerHTML = "");
+
+            var table = "  <table id=\"tblsummary\" class=\"table table-striped table-bordered\" style=\"width:100%\">" +
+                               "<thead>" +
+                                   "<tr>";
+            var col = "";
+            $.each(data.Column, function (i, item) {
+                if (item.Name != "ID") {
+                    col += " <th class=\"wd-15p sorting\" style=\"width:1px;\">" + item.Name + "</th>"
+                }
+
+            });
+            //" <th class=\"wd-15p sorting\" style=\"width:1px;\">#</th>" +
+            //" <th class=\"wd-10p sorting\">Paramete Name</th>" +
+            //"  <th>Is Active</th>" +
+            table += col += " <th></th>" +
+               "</tr>" +
+           "</thead>" +
+          " <tbody style=\"box-sizing :border-box;\">";
+
+
+
+
+
+            $.each(data.Row, function (i, item) {
+                table += "    <tr> "
+                var ro = "";
+                $.each(item.Row, function (j, row) {
+                    ro += "  <td>  " + row.ColumnValue + "</td>"
+                });
+
+
+                table += ro += "  <td class=\"text-center\"> <div class=\"row text-center\">" +
+                    //"<a class=\"btn btn-sm btn-success m-1\" id=\"Edit" + item.ID + "\" onclick=\"editInspection(" + item.ID + ")\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"Edit\"><i class=\"fa fa-edit text-white\" ></i> </a>" +
+
+                      "</div></td> " +
+                               " </tr>";
+
+            });
+
+            table += "   </tbody>" +
+                           "</table>"
+
+            //document.getElementById("#parametersummary").innerHTML = table;
+            $("#reportSummary").html(table);
+            //$.each(data.Row, function (i, item) {
+            //    document.getElementById("Edit" + item.ID).style.display = "none";
+            //    document.getElementById("Save" + item.ID).style.display = "none";
+            //});
+            //$.each(data.Row, function (i, item) {
+            //    document.getElementById("Edit" + item.ID).style.display = "block";
+            //    document.getElementById("Save" + item.ID).style.display = "none";
+            //});
+
+            setTimeout(function () {
+                $('#tblsummary').dataTable({
+                    "bLengthChange": false,
+                    "bInfo": false,
+                    "bPaginate": false,
+                    "bFilter": true,
+                    "paging": false,
+                    "retrieve": true,
+                    "dom": 'Bfrtip',
+                    "aoColumnDefs": [
+                        {
+                            'bSortable': false,
+                            'aTargets': [2, 3]
+                        }
+                    ],
+                   
+                    "buttons": [
+                        {
+                            "extend": 'excelHtml5',
+                            "text": '<i class="fa fa-file-excel-o" style="font-size:20px;"></i>',
+                            "titleAttr": 'Excel',
+                            "title": 'Inspection Details',
+                            "filename": 'InspectionDetails'
+
+                        }
+                    
+                    ],
+                    scrollY: '58vh',
+                    scrollX: true,
+                    stateSave: true
+
+                });
+            }, 50);
+
+
+        }
+    }
+
+    function editInspection(id) {
+        alert("Work in progress");
+    }
+
+
+</script>

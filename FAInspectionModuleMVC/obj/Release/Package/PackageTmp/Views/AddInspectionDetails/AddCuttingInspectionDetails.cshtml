@@ -1,0 +1,1180 @@
+﻿@{
+    ViewBag.Title = "AddCuttingInspectionDetails";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+ 
+<link href="~/Content/AddInspection.css" rel="stylesheet" />
+
+<div class=" content-area">
+    <div class="page-header">
+        <h4 class="page-title">Add <span id="title"></span> Inspection</h4>
+        <a class="btn btn-sm btn-primary m-1 right" id="list"  onclick="onListView()" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="List View"><i class="fa fa-list text-white"></i> </a>
+        <a class="btn btn-sm btn-primary m-1 right" id="add" onclick="onAddView()" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Add Inspection Details"><i class="fa fa-plus text-white"></i> </a>
+    </div>
+    <div class="row" id="addDetails">
+        <div class="col-12">
+           
+                @*<div class="card-header">
+                        <h4 class="card-title"></h4>
+                    </div>*@
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group  col-lg-4 col-xl-4 col-md-6 " id="woList">
+                           
+                        </div>
+                        <div class="form-group  col-lg-4 col-xl-4 col-md-6 " id="serialLists">
+                           
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label class="form-label">Observation </label>
+                            <input type="text" class="form-control" name="Special Instruction" id="SpecialInstruction" placeholder="Observation" id="SplInstruction">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="form-label">Checked by </label>
+                            <input type="text" class="form-control" name="Checked by" id="Checkedby" placeholder="Checked by " readonly>
+
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="form-label">Operator Name </label>
+                            <input type="text" class="form-control" name="Operator Name" id="OperatorName" placeholder="Operator Name" readonly>
+                            <input type="hidden" id="operatorID" name="operatorID" />
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="form-label">Time</label>
+                            <input type="text" class="form-control" name="Time" id="time" placeholder="Time" readonly>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="form-label">Brand</label>
+                            <input type="text" class="form-control" name="Brand" id="Brand" placeholder="Brand" readonly>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="form-label">Glass Description</label>
+                            <input type="text" class="form-control" name="glassDescription" id="glassDescription" placeholder="Glass Description" readonly>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="form-label">Height</label> 
+                            <input type="text" class="form-control" name="actualHeight" id="actualHeight" placeholder="Height" readonly>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="form-label">Width</label> 
+                            <input type="text" class="form-control" name="actualWidth" id="actualWidth" placeholder="Width" readonly>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label class="form-label">Thickness</label> 
+                            <input type="text" class="form-control" name="Thickness" id="Thickness" placeholder="Thickness" readonly>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                     
+                       
+                        <div class="form-group col-lg-2">
+                            <label class="form-label">Remarks</label> 
+                            <input type="text" class="form-control" name="Remarks" id="Remarks" placeholder="Remarks" readonly>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="form-label">Glass Type</label>
+                            <textarea class="form-control" name="glassType" id="glassType" placeholder="Glass Type" readonly style="resize:none !important;"></textarea>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label class="form-label">Edge Deletion</label>
+                            <textarea class="form-control" name="Description" id="Description" placeholder="Description" readonly style="resize:none !important;"></textarea>
+                             @*<input type="hidden" id="operatorID" name="operatorID" /> *@
+                          </div>
+                       
+                        <div class="form-group col-lg-4">
+                            <label class="form-label">Full Description</label>  
+                            <textarea class="form-control" name="fullDescription" id="fullDescription" placeholder="fullDescription" readonly style="resize:none !important;"></textarea>
+                            @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                        </div>
+                      </div>
+                    <div>
+                       
+                        <div class="table-responsive col-lg-8 pl-0" id="paraDetails">
+
+                            
+
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="card-footer text-right">
+                    <div class="d-flex">
+                        <a href="javascript:void(0)" class="btn btn-link" onclick="clearData()" >Cancel</a>
+                        <button type="submit" class="btn btn-primary ml-auto" onclick="AddCuttingInspectionDetails()">Add</button>
+                    </div>
+                </div>
+ 
+        </div>
+    </div>
+    <div id="summaryDetails">
+
+    </div>
+    <div id="updateDetails">
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group  col-lg-4 col-xl-4 col-md-6 " >
+                    <label class="form-label">WO NO </label>
+                    <input type="text" class="form-control" readonly name="updateWONO" id="updateWONO" placeholder="WO NO ">
+                    <input type="hidden" id="updateWOYear" name="updateWOYear" />
+                </div>
+                <div class="form-group  col-lg-4 col-xl-4 col-md-6 " >
+                    <label class="form-label">Serial no </label>
+                    <input type="text" class="form-control" readonly name="updateSerialNO" id="updateSerialNO" placeholder="Serial NO">
+                </div>
+
+                <div class="form-group col-lg-4">
+                    <label class="form-label">Observation</label>
+                    <input type="text" class="form-control" name="updateSpecialInstruction" id="updateSpecialInstruction" placeholder="Observation " id="SplInstruction">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="form-label">Checked by </label>
+                    <input type="text" class="form-control" name="updateCheckedby" id="updateCheckedby" placeholder="Checked by ">
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="form-label">Verified by </label>
+                    <input type="text" class="form-control" name="updateOperatorName" id="updateOperatorName" placeholder="Operator Name">
+                    <input type="hidden" id="updateOperatorID" name="updateOperatorID" />
+                </div>
+                
+                <div class="form-group col-lg-2">
+                    <label class="form-label">Time</label>
+                    <input type="text" class="form-control" name="Time" id="updatetime" placeholder="Time" readonly>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="form-label">Brand</label>
+                    <input type="text" class="form-control" name="Brand" id="updateBrand" placeholder="Brand" readonly>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="form-label">Glass Description</label>
+                    <input type="text" class="form-control" name="glassDescription" id="updateglassDescription" placeholder="Glass Description" readonly>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="form-label">Height</label>
+                    <input type="text" class="form-control" name="actualHeight" id="updateactualHeight" placeholder="Height" readonly>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="form-label">Width</label>
+                    <input type="text" class="form-control" name="actualWidth" id="updateactualWidth" placeholder="Width" readonly>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+                <div class="form-group col-lg-2">
+                    <label class="form-label">Thickness</label>
+                    <input type="text" class="form-control" name="Thickness" id="updateThickness" placeholder="Thickness" readonly>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+
+
+                <div class="form-group col-lg-2">
+                    <label class="form-label">Remarks</label>
+                    <input type="text" class="form-control" name="Remarks" id="updateRemarks" placeholder="Remarks" readonly>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="form-label">Glass Type</label>
+                    <textarea class="form-control" name="glassType" id="updateglassType" placeholder="Glass Type" readonly style="resize:none !important;"></textarea>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+                <div class="form-group col-lg-4">
+                    <label class="form-label">Edge Deletion</label>
+                    <textarea class="form-control" name="Description" id="updateDescription" placeholder="Description" readonly style="resize:none !important;"></textarea>
+                    @*<input type="hidden" id="operatorID" name="operatorID" /> *@
+                </div>
+
+                <div class="form-group col-lg-4">
+                    <label class="form-label">Full Description</label>
+                    <textarea class="form-control" name="fullDescription" id="updatefullDescription" placeholder="fullDescription" readonly style="resize:none !important;"></textarea>
+                    @*<input type="hidden" id="operatorID" name="operatorID" />*@
+                </div>
+            </div>
+            <div>
+
+                <div class="table-responsive col-lg-8 pl-0" id="updateparaDetails">
+
+
+
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer text-right">
+            <div class="d-flex">
+                <a href="javascript:void(0)" class="btn btn-link" onclick="clearUpdateData()">Cancel</a>
+                <button type="submit" class="btn btn-primary ml-auto" onclick="updateInspection()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var parameterList;
+    var department;
+    var deptID;
+    var sPageURL;
+    var sParameterName;
+    var listOFInspec;
+    var selecteIDForList;
+    window.onload = function () {
+        onAddView();
+         sPageURL = window.location.search.substring(1);
+        //console.log(sPageURL);
+         sParameterName = sPageURL.substring(sPageURL.search("=") + 1, sPageURL.length);
+         sParameterName = sParameterName.replace(/%20/g, " ");
+         sParameterName = sParameterName.replace(/%26/g, "&");
+         $("#title").text(sParameterName);
+         
+        console.log("test")
+        //console.log(sParameterName);
+        getDepartmentList();
+       
+            //getContainerCount();
+            //$(document).ready(function () {
+            //    $('#para').dataTable({
+            //        "bLengthChange": false,
+            //        "bInfo": false,
+            //        "bPaginate": false,
+            //        "bFilter": true,
+            //        "paging": false, 
+            //        'bSortable': false,
+            //        "searching": false,
+            //        'aaSorting': [[1, 'asc']],
+            //        "columnDefs": [
+            //             { 'orderable': false, 'targets': [0, 1] },
+            //            { "width": "10px", "targets": 0 },
+            //              { "width": "40px", "targets": 1 },
+                         
+            //        ],
+
+            //    })
+            //});
+
+        };
+        function getWONOForCutting() {
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetWONOForCuttingInspection",
+                   data: '{deptID: '+ deptID +'}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getWOList(data);
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getWOList(data) {
+            if (data != null) {
+                var select = "<label class=\"form-label\">Select WONO</label>" +
+                        "<select class=\"form-control select2 custom-select\" data-placeholder=\"Choose one\" onchange=\"getSerialNOForWO()\" id=\"wonos\"> <optgroup>";
+                var option = "";
+                $.each(data, function (i, item) {
+
+                    option += " <option value=\"" + item.WONO + "\" onchange=\"getSerialNOForWO(" + item.WONO + ")\" >" + item.WONO + "</option>"
+
+                });
+
+                select += option += "</optgroup></select>";
+                $.each(data, function (i, item) {
+
+                    select += " <input type=\"hidden\" id=\"" + item.WONO + "\" name=\"" + item.WOYEAR + "\" value=\"" + item.WOYEAR + "\">";
+
+                });
+               
+                $("#woList").html(select);
+                $('#wonos').select2();
+                getSerialNOForWO();
+            }
+        }
+
+        function getSerialNOForWO() {
+            var wono = $("#wonos").val();
+            var year = $("#" + wono).val();
+
+            //console.log(wono, year);
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetSRNOForWONOCuttingInspection",
+                   data: '{wono: ' + JSON.stringify(wono) + ',woYear:' + JSON.stringify(year) + ',deptID:'+ deptID +'}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getSerialList(data);
+                      
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getSerialList(data) {
+            if (data != null) {
+                var select = "<label class=\"form-label\">Select Item No</label>" +
+                        "<select class=\"form-control  select2-show-search\" data-placeholder=\"Choose one\" onchange=\"getAutoFillForWO()\"  id=\"serialList\">";
+                var option = "";
+                $.each(data, function (i, item) {
+
+                    option += " <option value=\"" + item.SrNO + "\" >" + item.SrNO + "</option>"
+
+                });
+
+                select += option += "</select>";
+               
+
+                $("#serialLists").html(select);
+                getAutoFillForWO();
+                
+            }
+           
+        }
+
+        function getAutoFillForWO() {
+            getOperatorDetailsforWONO();
+        }
+
+        function getOperatorDetailsforWONO() {
+            var wono = $("#wonos").val();
+            var year = $("#" + wono).val();
+            var item =  $("#serialList").val(); 
+
+            //console.log(wono, year);
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetOperatorDetailsforWONO",
+                   data: '{wono: ' + JSON.stringify(wono) + ',srno:' + JSON.stringify(item) + ',woYear:' + JSON.stringify(year) + ',deptID:' + deptID + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getOperatorName(data);
+
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getCheckedByName() {
+            
+            //console.log(wono, year);
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetCheckedByName",
+                   //data: '{wono: ' + JSON.stringify(wono) + ',srno:' + JSON.stringify(item) + ',woYear:' + JSON.stringify(year) + ',deptID:' + deptID + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getCheckedName(data);
+
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+      function  getOperatorName(data){
+          if (data != null) {
+              console.log(data)
+              var opName = data.Name;
+              var opID = data.ID;
+                $("#OperatorName").val( opName);
+                $("#operatorID").val(opID);
+                getCheckedByName();
+            }
+      }
+      function getCheckedName(data) {
+          if (data != null) {
+              console.log(data)
+              var opName = data.Name;
+              var opID = data.ID;
+              $("#Checkedby").val(opName);
+              
+              var today = new Date();
+              var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+              $("#time").val(time);
+              autoFillTheWONODetails();
+              
+          }
+      }
+      function autoFillTheWONODetails() {
+          var wono = $("#wonos").val();
+          var year = $("#" + wono).val();
+          var item = $("#serialList").val();
+          $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetGlassDetailsforWONOForCutting",
+                   data: '{wono: ' + JSON.stringify(wono) + ',srno:' + JSON.stringify(item) + ',woYear:' + JSON.stringify(year) + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getAutoFillDetails(data);
+
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+      }
+      function getAutoFillDetails(data) {
+          if (data != null) {
+              //______Remarks__
+              console.log(data);
+              $("#glassDescription").val(data.Description);
+              $("#actualHeight").val(data.Height);
+              $("#actualWidth").val(data.Width);
+              $("#Thickness").val(data.Thickness);
+              $("#Brand").val(data.Brand);
+              $("#glassType").val(data.GlassType);
+              $("#Remarks").val(data.Remarks);
+              $("#Description").val(data.Description);
+              $("#fullDescription").val(data.FullDescription);
+          }
+      }
+
+        function getDepartmentList() {  
+            $.ajax(
+               {
+                   url: "/InspectionList/GetDepartmentForInspection", 
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       department = JSON.stringify(data); 
+                       $.each(data, function (i, item) {
+                           if (item.DeptName.toLowerCase() == sParameterName.toLowerCase()) {
+                               deptID = item.DeptID;
+                               //console.log(item.DeptName)
+                               getParameterForCutting();
+                               getWONOForCutting();
+                           }
+                       });
+
+
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+
+        function getParameterForCutting() {
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetParameterListForDept",
+                   data: '{deptID:'+ deptID +'}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getParameterLsit(data);
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getParameterLsit(data) {
+            if (data != null) {
+                parameterList = data;
+                $("#paraDetails").html("");
+                //document.getElementById("#parametersummary").innerHTML = "");
+
+                var table = "  <table id=\"para\" class=\"table table-striped table-bordered\" style=\"width:100%\">" +
+                                  
+                                  " <tbody style=\"box-sizing :border-box;\">";
+
+
+
+
+
+                $.each(data, function (i, item) {
+                   
+                    if (item.IsActive) {
+                        table += " <tr> <td >" +  item.ParameterName +  "  </td> "+
+                         "  <td >" +
+                         " <input type=\"text\"id=\"" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID + "\"class=\"form-control  \" name=\"" + item.ParameterName + "\" placeholder=\"" + item.ParameterName + "\">" +
+                         "  </td> </tr>";
+                    }
+                });
+
+                table += "   </tbody>" +
+                               "</table>"
+
+                //document.getElementById("#parametersummary").innerHTML = table;
+                $("#paraDetails").html(table);
+               
+                //setTimeout(function () {
+                //    $('#para').dataTable({
+                //        "bLengthChange": false,
+                //        "bInfo": false,
+                //        "bPaginate": false,
+                //        "bFilter": true,
+                //        "paging": false,
+                //        "retrieve": true,
+                //        "aoColumnDefs": [
+                //            {
+                //                'bSortable': false,
+                //                'aTargets': [2, 3]
+                //            }
+                //        ]
+
+                //    });
+                //}, 50);
+
+
+            }
+        }
+
+        function AddCuttingInspectionDetails() {
+            //console.log(parameterList);
+            var value = [];
+            var inspValue ;
+            $.each(parameterList, function (i, item) {
+               
+                value.push({
+                    "ParamID": item.ParameterID,
+                    "ParamValue": $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID)).val()
+                })
+                if ($("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID)).val() == "" || $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID)).val() == null) {
+                      value = [];
+                }
+                //console.log($("#" + (item.ParameterName.replace(/ +/g, "") + item.ParameterID)).val());
+            });
+            //console.log(value);
+           
+            
+            //console.log(inspValue)
+
+            //console.log($("#SpecialInstruction").val());
+            //console.log($("#OperatorName").val());
+            //console.log($("#Checkedby").val());
+
+            if (value.length != 0 && ((($("#SpecialInstruction").val() != null && $("#SpecialInstruction").val() != "") &&
+                ($("#OperatorName").val() != null && $("#OperatorName").val() != "") &&
+                ($("#Checkedby").val() != null && $("#Checkedby").val() != "")
+                ))) {
+                if ($("#wonos").val() != "NA" && $("#serialList").val() != "NA") {
+                    inspValue = {
+                        "WONO": $("#wonos").val(),
+                        "SrNO": $("#serialList").val(),
+                        "WOYear": $("#" + $("#wonos").val()).val(),
+                        "SpecialInstruction": $("#SpecialInstruction").val(),
+                        "VerificationBY": $("#operatorID").val(),
+                       
+                        "AddedBY": 0,
+                        "DeptID": deptID
+                    }
+                    console.log(inspValue);
+                    console.log(value);
+                    $.ajax(
+                   {
+                       url: "/AddInspectionDetails/AddCuttingInspectionData",
+                       data: '{insp: ' + JSON.stringify(inspValue) + ',inspectionValue: ' + JSON.stringify(value) + '}',
+                       type: "POST",
+                       contentType: "application/json; charset=utf-8",
+                       success: function (data) {
+                           //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                           //console.log(data);
+                           //getParameterLsit(data);
+                           if (data.toLowerCase() == "ok".toLowerCase()) {
+                               alert("Inspection Details Saved");
+                               clearData();
+                           }
+                       },
+
+                       error: function (message) {
+
+                           alert(JSON.stringify(message.responseText));
+
+
+                       }
+                   });
+                } else {
+                    alert("No WO found!")
+                }
+        
+            } else {
+                if (((($("#SpecialInstruction").val() == null || $("#SpecialInstruction").val() == "") &&
+                ($("#OperatorName").val() == null || $("#OperatorName").val() == "") &&
+                ($("#Checkedby").val() == null || $("#Checkedby").val() == "")
+                ))) {
+                    alert("Add all the details!");
+                } else if (parameterList.length != 0) {
+                    alert("Add Parameter values!");
+                }else {
+                    alert("Add parameter before adding Inspection value!");
+                }
+                
+            }
+
+           
+        }
+
+        function clearData() {
+            getDepartmentList();
+            $("#SpecialInstruction").val('');
+            $("#OperatorName").val('');
+            $("#Checkedby").val('');
+            $.each(parameterList, function (i, item) {
+                $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID)).val();
+                //console.log($("#" + (item.ParameterName.replace(/ +/g, "") + item.ParameterID)).val());
+            });
+          
+        }
+
+       function clearUpdateData(){
+            $("#updateSpecialInstruction").val('');
+            $("#updateCheckedby").val('');
+            $("#updateOperatorName").val('');
+            $.each(parameterList, function (i, item) {
+                var name = "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + item.ParameterID;
+                                    
+                $("#" + name).val('');
+                document.getElementById(name).value = ""
+            });
+        }
+
+       function onListView() {
+           $("#sidebar").height('87vh');
+            $("#list").hide();
+            $("#addDetails").hide();
+            $("#add").show();
+            $("#summaryDetails").show();
+            document.getElementById("updateDetails").style.display = "none";
+            $.ajax(
+                 {
+                     url: "/AddInspectionDetails/GetSummaryListForDepartmentWise",
+                     data: '{deptID: ' + deptID + '}',
+                     type: "POST",
+                     contentType: "application/json; charset=utf-8",
+                     success: function (data) {
+                         //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                         //console.log( (data));
+                         getSummaryList(data);
+                        
+                     },
+
+                     error: function (message) {
+
+                         alert(JSON.stringify(message.responseText));
+
+
+                     }
+                 });
+            
+        }
+        function onAddView() {
+            $("#list").show();
+            $("#addDetails").show();
+            $("#summaryDetails").hide();
+            $("#add").hide();
+            document.getElementById("updateDetails").style.display = "none";
+        }
+
+        function getSummaryList(data) {
+            if (data != null) {
+                listOFInspec = data;
+                $("#summaryDetails").html("");
+                //document.getElementById("#parametersummary").innerHTML = "");
+
+                var table = "  <table id=\"tblsummary\" class=\"table table-striped table-bordered\" style=\"width:100%\">" +
+                                   "<thead>" +
+                                       "<tr>";
+                var col = "";
+                $.each(data.Column, function (i, item) {
+                    if (item.Name != "ID") {
+                        col += " <th class=\"wd-15p sorting\" style=\"width:1px;\">" + item.Name + "</th>"
+                    }
+                  
+                });
+                                           //" <th class=\"wd-15p sorting\" style=\"width:1px;\">#</th>" +
+                                           //" <th class=\"wd-10p sorting\">Paramete Name</th>" +
+                                           //"  <th>Is Active</th>" +
+                                    table += col+=       " <th></th>" +
+                                       "</tr>" +
+                                   "</thead>" +
+                                  " <tbody style=\"box-sizing :border-box;\">";
+
+
+
+
+
+                                    $.each(data.Row, function (i, item) {
+                                        table += "    <tr> "
+                                        var ro = "";
+                                        $.each(item.Row, function (j, row) {
+                                            ro += "  <td>  " + row.ColumnValue + "</td>"
+                                        });
+                                        
+                   
+                    table += ro+= "  <td class=\"text-center\"> <div class=\"row text-center\">" +
+                        "<a class=\"btn btn-sm btn-success m-1\" id=\"Edit" + item.ID + "\" onclick=\"editInspection(" + item.ID + ")\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"Edit\"><i class=\"fa fa-edit text-white\" ></i> </a>" +
+                        
+                          "</div></td> " +
+                                   " </tr>";
+
+                });
+
+                table += "   </tbody>" +
+                               "</table>"
+
+                //document.getElementById("#parametersummary").innerHTML = table;
+                $("#summaryDetails").html(table);
+                //$.each(data.Row, function (i, item) {
+                //    document.getElementById("Edit" + item.ID).style.display = "none";
+                //    document.getElementById("Save" + item.ID).style.display = "none";
+                //});
+                //$.each(data.Row, function (i, item) {
+                //    document.getElementById("Edit" + item.ID).style.display = "block";
+                //    document.getElementById("Save" + item.ID).style.display = "none";
+                //});
+
+                setTimeout(function () {
+                    $('#tblsummary').dataTable({
+                        "bLengthChange": false,
+                        "bInfo": false,
+                        "bPaginate": false,
+                        "bFilter": true,
+                        "paging": false,
+                        "retrieve": true,
+                         "dom": 'Bfrtip',
+                        "aoColumnDefs": [
+                            {
+                                'bSortable': false,
+                                'aTargets': [2, 3]
+                            }
+                        ],
+                        "buttons": [
+                       {
+                           "extend": 'excelHtml5',
+                           "text": '<i class="fa fa-file-excel-o" style="font-size:20px;"></i>',
+                           "titleAttr": 'Excel',
+                           "title": 'Inspection Details',
+                           "filename": 'InspectionDetails'
+
+                       }],
+                        scrollY: '58vh',
+                        scrollX: true,
+                        stateSave: true
+
+                    });
+                }, 50);
+
+
+            }
+        }
+
+
+        function getUpdateAutoFillForWO() {
+            getUpdateOperatorDetailsforWONO();
+        }
+
+        function getUpdateOperatorDetailsforWONO() {
+            var wono = $("#updateWONO").val();
+            var year = $("#updateWOYear").val();
+            var item = $("#updateSerialNO").val();
+
+            //console.log(wono, year);
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetOperatorDetailsforWONO",
+                   data: '{wono: ' + JSON.stringify(wono) + ',srno:' + JSON.stringify(item) + ',woYear:' + JSON.stringify(year) + ',deptID:' + deptID + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getUpdateOperatorName(data);
+
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getUpdateCheckedByName() {
+
+            //console.log(wono, year);
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetCheckedByName",
+                   //data: '{wono: ' + JSON.stringify(wono) + ',srno:' + JSON.stringify(item) + ',woYear:' + JSON.stringify(year) + ',deptID:' + deptID + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getUpdateCheckedName(data);
+
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getUpdateOperatorName(data) {
+            if (data != null) {
+                console.log(data)
+                var opName = data.Name;
+                var opID = data.ID;
+                $("#updateOperatorName").val(opName);
+                $("#updateoperatorID").val(opID);
+                getUpdateCheckedByName();
+            }
+        }
+        function getUpdateCheckedName(data) {
+            if (data != null) {
+                console.log(data)
+                var opName = data.Name;
+                var opID = data.ID;
+                $("#updateCheckedby").val(opName);
+
+                var today = new Date();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                $("#updatetime").val(time);
+                autoUpdateFillTheWONODetails();
+
+            }
+        }
+        function autoUpdateFillTheWONODetails() {
+           
+            var wono = $("#updateWONO").val();
+            var year = $("#updateWOYear").val();
+            var item = $("#updateSerialNO").val();
+            $.ajax(
+                 {
+                     url: "/AddInspectionDetails/GetGlassDetailsforWONOForCutting",
+                     data: '{wono: ' + JSON.stringify(wono) + ',srno:' + JSON.stringify(item) + ',woYear:' + JSON.stringify(year) + '}',
+                     type: "POST",
+                     contentType: "application/json; charset=utf-8",
+                     success: function (data) {
+                         //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                         //console.log(data);
+                         getUpdateAutoFillDetails(data);
+
+                     },
+
+                     error: function (message) {
+
+                         alert(JSON.stringify(message.responseText));
+
+
+                     }
+                 });
+        }
+        function getUpdateAutoFillDetails(data) {
+            if (data != null) {
+                //______Remarks__
+                console.log(data);
+                $("#updateglassDescription").val(data.Description);
+                $("#updateactualHeight").val(data.Height);
+                $("#updateactualWidth").val(data.Width);
+                $("#updateThickness").val(data.Thickness);
+                $("#updateBrand").val(data.Brand);
+                $("#updateglassType").val(data.GlassType);
+                $("#updateRemarks").val(data.Remarks);
+                $("#updateDescription").val(data.Description);
+                $("#updatefullDescription").val(data.FullDescription);
+            }
+        }
+
+
+        function editInspection(id) {
+            getUpdateParameterForCutting();
+            selecteIDForList = id;
+            document.getElementById("summaryDetails").style.display = "none";
+            document.getElementById("updateDetails").style.display = "block";
+            $("#list").show(); 
+            $("#add").hide();
+            //$("#summaryDetails").show();
+
+            $.each(listOFInspec.Row, function (i, item) {
+                if (id == item.ID) {
+                    
+                    console.log(item);
+                    $.each(item.Row, function (j, row) {
+                        if (row.ColumneName == "Work Order No.") {
+                            $("#updateWONO").val(row.ColumnValue);
+                        }
+                        if (row.ColumneName == "Item No.") {
+                            $("#updateSerialNO").val(row.ColumnValue);
+                        }
+                        if (row.ColumneName == "WO Year") {
+                            $("#updateWOYear").val(row.ColumnValue);
+                        }
+                        if (row.ColumneName == "Observation") {
+                            $("#updateSpecialInstruction").val(row.ColumnValue);
+                        }
+                        if (row.ColumneName == "Checked By") {
+                            $("#updateCheckedby").val(row.ColumnValue);
+                        }
+                      
+
+                        getUpdateAutoFillForWO();
+                        //$.each(parameterList, function (k, param) {
+                        //    if (row.ColumneName.toLowerCase().trim() == param.ParameterName.toLowerCase().trim()) {
+                        //        var name = "update" +param.ParameterName.replace(/ +/g, "").trim() + param.ParameterID;
+                        //        console.log(name);
+                        //        $("#" + name).val("'" + row.ColumnValue + "'");
+                        //        document.getElementById(name).value = row.ColumnValue;
+                        //    }
+                        //});
+
+                    });
+                }
+                
+            });
+           
+            
+        }
+        function updateInspection(id) {
+            //console.log(parameterList);
+            var value = [];
+            var inspValue;
+            
+            $.each(parameterList, function (i, item) {
+               
+                value.push({
+                    "ParamID": item.ParameterID,
+                    "ParamValue": $("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + item.ParameterID).val()
+                })
+                if ($("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + item.ParameterID).val() == "" || $("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + item.ParameterID).val() == null) {
+                    value = [];
+                }
+                
+            });
+           
+
+            if (value.length != 0 && ((($("#updateSpecialInstruction").val() != null && $("#updateSpecialInstruction").val() != "") &&
+                ($("#updateOperatorName").val() != null && $("#updateOperatorName").val() != "") &&
+                ($("#updateCheckedby").val() != null && $("#updateCheckedby").val() != "")
+                ))) {
+                if ($("#updateWONO").val() != "NA" && $("#updateSerialNO").val() != "NA") {
+                    inspValue = {
+                        "WONO": $("#updateWONO").val(),
+                        "SrNO": $("#updateSerialNO").val(),
+                        "WOYear": $("#updateWOYear").val(),
+                        "SpecialInstruction": $("#updateSpecialInstruction").val(),
+                        "VerificationBY": $("#updateOperatorID").val(),
+                        "CheckedBY": $("#updateCheckedby").val(),
+                        "AddedBY": 0,
+                        "DeptID": deptID
+                    }
+                     
+                    $.ajax(
+                   {
+                       url: "/AddInspectionDetails/AddCuttingInspectionData",
+                       data: '{insp: ' + JSON.stringify(inspValue) + ',inspectionValue: ' + JSON.stringify(value) + '}',
+                       type: "POST",
+                       contentType: "application/json; charset=utf-8",
+                       success: function (data) {
+                           //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                           //console.log(data);
+                           //getParameterLsit(data);
+                           if (data.toLowerCase() == "ok".toLowerCase()) {
+                               alert("Inspection Details updated");
+                               clearUpdateData();
+                               document.getElementById("summaryDetails").style.display = "block";
+                               document.getElementById("updateDetails").style.display = "none";
+                               onListView();
+
+                           }
+                       },
+
+                       error: function (message) {
+
+                           alert(JSON.stringify(message.responseText));
+
+
+                       }
+                   });
+                } else {
+                    alert("No WO found!")
+                }
+        
+            } else {
+                if (((($("#SpecialInstruction").val() == null || $("#SpecialInstruction").val() == "") &&
+                ($("#OperatorName").val() == null || $("#OperatorName").val() == "") &&
+                ($("#Checkedby").val() == null || $("#Checkedby").val() == "")
+                ))) {
+                    alert("Add all the details!");
+                } else if (parameterList.length != 0) {
+                    alert("Add Parameter values!");
+                }else {
+                    alert("Add parameter before adding Inspection value!");
+                }
+                
+            }
+
+           
+
+        }
+        function deleteInspection(id) {
+            $("#list").hide();
+            $("#addDetails").hide();
+            $("#add").show();
+            $("#summaryDetails").show();
+            document.getElementById("updateDetails").style.display = "none";
+            $.ajax(
+                 {
+                     url: "/AddInspectionDetails/DeleteInspectionDetails",
+                     data: '{autoID: '+ id +',deptID: ' + deptID + '}',
+                     type: "POST",
+                     contentType: "application/json; charset=utf-8",
+                     success: function (data) {
+                         //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                         //console.log((data));
+                         getSummaryList(data);
+
+                     },
+
+                     error: function (message) {
+
+                         alert(JSON.stringify(message.responseText));
+
+
+                     }
+                 });
+
+        }
+
+        function getUpdateParameterForCutting() {
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetParameterListForDept",
+                   data: '{deptID:' + deptID + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getUpdateParameterLsit(data);
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getUpdateParameterLsit(data) {
+            if (data != null) {
+                parameterList = data;
+                $("#updateparaDetails").html("");
+                //document.getElementById("#parametersummary").innerHTML = "");
+
+                var table = "  <table id=\"para\" class=\"table table-striped table-bordered\" style=\"width:100%\">" +
+
+                                  " <tbody style=\"box-sizing :border-box;\">";
+
+
+
+
+
+                $.each(data, function (i, item) {
+
+                    if (item.IsActive) {
+                        table += " <tr> <td >" + item.ParameterName + "  </td> " +
+                         "  <td >" +
+                         " <input type=\"text\"id=\"update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID + "\"class=\"form-control  \" name=\"" + item.ParameterName + "\" placeholder=\"" + item.ParameterName + "\">" +
+                         "  </td> </tr>";
+                    }
+                });
+
+                table += "   </tbody>" +
+                               "</table>"
+                $("#updateparaDetails").html(table);
+               
+                $.each(listOFInspec.Row, function (i, item) {
+                     
+                     if (selecteIDForList == item.ID) { 
+                        $.each(item.Row, function (j, row) {
+                            
+                            $.each(parameterList, function (k, param) {
+                                if (row.ColumneName.toLowerCase().trim() == param.ParameterName.toLowerCase().trim()) {
+                                    var name = "update" + param.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + param.ParameterID;
+                                    
+                                    $("#" + name).val("'" + row.ColumnValue + "'");
+                                    document.getElementById(name).value = row.ColumnValue;
+                                }
+                            });
+
+                        });
+                    }
+
+                });
+
+
+            }
+        }
+
+
+    </script>

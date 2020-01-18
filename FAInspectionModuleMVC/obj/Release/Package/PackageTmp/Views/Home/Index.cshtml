@@ -1,0 +1,141 @@
+﻿@model FAInspectionModuleMVCEntities.BusinessEntities.LoginDetails
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<body class="login-img">
+    @* defines the controller name , method and the type *@
+
+    <div class="page">
+        @using (Html.BeginForm("login", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="page-single">
+                <div class="container">
+                    <div class="row">
+                        <div class="col mx-auto">
+                            <div class="text-center mb-6">
+                                @*<img src="~/images/loginpagelogo.png" class="" alt="">*@
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    <div class="card-group mb-0">
+                                        <div class="card p-4">
+                                            <div class="card-body">
+                                                <h1>Login</h1>
+                                                <p class="text-muted">Sign In to your account</p>
+
+                                                <div class="input-group mb-3" id="divusername">
+                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    @* <input type="text" class="form-control" placeholder="Username">*@
+                                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @id = "txtusername", name = "username", placeholder = "Username", autocomplete = "off" } })
+                                                    <div class="invalid-feedback" style="display:none" id="userrequired">User Name is required</div>
+
+                                                </div>
+
+
+                                                <div class="input-group mb-4" id="divpassword">
+                                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                    @*<input type="password" class="form-control" placeholder="Password">*@
+                                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "txtpassword", name = "password", placeholder = "Password", autocomplete = "off", type = "password" } })
+                                                    <div class="invalid-feedback" style="display:none" id="passwordrequired">Password is required</div>
+                                                    @* <span class="invalid-feedback" style="display:none" id="passwordrequired">Password is required</span>*@
+
+
+                                                </div>
+                                                <span class="text-danger" id="usernameinvalid">@Html.DisplayFor(model => model.LoginErrorMessage)</span>
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <label class="custom-control custom-checkbox">
+
+                                                            @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "custom-control-input", @id = "rememberme", name = "rememberme", placeholder = "rememberme", autocomplete = "off", type = "checkbox" } })
+
+                                                            <span class="custom-control-label">Remember Me</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <input type="submit" class="btn btn-primary btn-block" id="login" name="login" value="Login" />
+                                                        @* <button type="button" class="btn btn-primary btn-block" onclick="window.location.href='@Url.Action("Logout")'">Login</button>*@
+                                                    </div>
+                                                    <div class="col-12">
+                                                        @* <a href="forgot-password.html" class="btn btn-link box-shadow-0 px-0">Forgot password?</a>*@
+                                                        <a href="#" class="btn btn-link box-shadow-0 px-0" onclick="return onservice();">Forgot password?</a>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="card text-white bg-primary py-5 d-md-down-none login-transparent">
+                                            <div class="card-body text-center justify-content-center ">
+                                                @*<h2>Sign up</h2>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.ed ut perspiciatis unde omnis iste natus error sit voluptatem  </p>
+
+                                                    <a href="register.html" class="btn btn-primary active mt-3">Register Now!</a>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#login').click(function () {
+                var username = document.getElementById('txtusername').value;
+                var password = document.getElementById('txtpassword').value;
+
+                var blResult = Boolean;
+                blResult = true;
+
+                document.getElementById('txtusername').style.borderColor = "Gainsboro";
+                document.getElementById('txtpassword').style.borderColor = "Gainsboro";
+
+                if (username == "") {
+                    document.getElementById('txtusername').style.borderColor = "red"
+                    blResult = blResult && false;
+                }
+                if (password == "") {
+                    document.getElementById('txtpassword').style.borderColor = "red"
+                    blResult = blResult && false;
+                }
+
+                if (blResult == false) { alert('Please fill the required fields!'); }
+                return blResult;
+            });
+            //$('#btnRemoveCSS').click(function () {
+            //    $('#divsample').removeClass('divclass')
+            //});
+        })
+    </script>
+    <script type="text/javascript">
+
+        function onservice() {
+            alert("Under revision..!")
+        }
+
+    </script>
+
+</body>
+
+
+
+

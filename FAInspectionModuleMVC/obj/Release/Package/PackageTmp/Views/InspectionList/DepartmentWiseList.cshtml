@@ -1,0 +1,381 @@
+﻿
+@{
+    ViewBag.Title = "DepartmentWiseList";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+ <style>
+    #txtAdd {
+        text-transform: capitalize;
+    }
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+    border: 1px solid #9f78ff;
+}
+
+.custom-control-input:disabled~.custom-control-label::before{
+      border: 1px solid #9f78ff;
+}
+.custom-checkbox .custom-control-label::before{
+border: 1px solid #9f78ff;
+}
+</style>
+<div class="content-area">
+    <div class="page-header">
+        <h4 class="page-title">Add Parameters Department Wise <label class="page-title" id="count"></label></h4>
+
+        <div class="form-group">
+            <label class="form-label"></label>
+            <div class="row gutters-xs">
+                <div class="col">
+                    @*<button type="button" class="btn btn-icon btn-orange" name="gst" title="GST" id="gst"><i class="fa fa-google"></i></button>*@
+                    @*<button type="button" class="btn btn-icon btn-teal" name="summarylist" title="Summary list" id="summarylist" onclick="ViewSummaryList()"><i class="fa fa-file-text"></i></button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="col-lg-12 col-sm-12 row">
+            <form  class="card">
+                @*<div class="card-header">
+                        <h3 class="card-title"></h3>
+                    </div>*@
+                <div class="card-body row">
+                    <div class="form-group  col-lg-4 col-xl-4 col-md-6 " id="departmentList">
+                       
+                    </div>
+                    <div class="form-group col-lg-8 col-xl-8 col-md-6 mt-5">
+                        <div class="input-group">
+                            <input type="text" id="txtParameter" class="form-control" placeholder="Add Parameter Name.." maxlength="50" > @*style="text-transform:uppercase"*@
+                            <span class="input-group-append">
+                                <button class="btn btn-primary" id="btnSearch" type="button" onclick="addParameterForDept()"><i class="fa fa-plus"></i></button>
+                                @* <a onclick="AddBL();" class="btn btn-primary btn-success text-right" style="align-content:center;color:white"><i class="fa fa-plus" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Generate BL"></i> </a>*@
+
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title" id="deptHeaderLBL"></h3>
+                    </div>
+                    <div class="card-body" >
+                        <div class="table-responsive" id="parametersummary">
+                          
+                             
+                        </div>
+
+                    </div>
+                    <!-- table-wrapper -->
+                </div>
+                <!-- section-wrapper -->
+            </div>
+        </div>
+    </div>
+
+</div>
+ 
+
+
+
+
+
+    <script>
+        $(document).on('keypress', function (e) {
+            if (e.which == 13) {
+                addParameterForDept();
+                $("#txtParameter").val('');
+                e.preventDefault();
+                return false;
+            }
+        });
+        var selectedDeptID;
+        var deptList;
+        window.onload = function () {
+            getDepartmentList();
+           
+            //getContainerCount();
+            //$(document).ready(function () {
+            //    $('#tblParametersummary').dataTable({
+            //        "bLengthChange": false,
+            //        "bInfo": false,
+            //        "bPaginate": false,
+            //        "bFilter": true,
+            //        "paging": false,
+            //        "retrieve": true,
+            //        "aoColumnDefs": [
+            //            {
+            //                'bSortable': false,
+            //                'aTargets': [2, 3]
+            //            }
+            //        ]
+
+            //    })
+            //});
+
+        };
+        function getContainerCount() {
+            $.ajax(
+                  {
+
+                      url: "/Container/GetContaineCount",
+                      type: "POST",
+                      contentType: "application/json; charset=utf-8",
+                      success: function (count) {
+                          console.log(count)
+                          $('#count').text(count);
+                          $("#count").val(count);
+                      },
+
+                      error: function (message) {
+
+                          alert(JSON.stringify(message.responseText));
+
+
+                      }
+                  });
+        }
+        function getDepartmentList() {
+            //var cotainerName = $("#txtAdd").val();
+            $.ajax(
+               {
+                   url: "/InspectionList/GetDepartmentForInspection",
+                   //data: '{cotainerName: ' + JSON.stringify(cotainerName) + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) { 
+                       getDepartment(data);
+                       getParameterForDept();
+
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getDepartment(data) {
+            if (data != null) {
+                deptList = data;
+                var select = "<label class=\"form-label\">Select Department</label>" +
+                        "<select class=\"form-control select2 custom-select\" data-placeholder=\"Choose one\" onchange=\"getParameterForDept()\" id=\"depts\">";
+                var option = "";
+                $.each(data, function (i, item) {
+                    
+                    option += " <option value=\"" + item.DeptID + "\" onchange=\"getParameterForDept("+item.DeptID+ ")\" >" + item.DeptName + "</option>"
+                     
+                });
+             
+                select += option += "</select>";
+                $("#departmentList").html(select);
+
+               
+            }
+        }
+
+      
+        function getParameterForDept() {
+            selectedDeptID = JSON.stringify($("#depts").val());
+            $.ajax(
+               {
+                   url: "/InspectionList/GetParameterListForDept",
+                   data: '{deptID: ' + JSON.stringify($("#depts").val()) + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) { 
+                       $("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getParameterLsit(data);                      
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+
+        function getParameterLsit(data) {
+            if (data != null) {
+                $("#parametersummary").html("");
+                //document.getElementById("#parametersummary").innerHTML = "");
+
+                var table = "  <table id=\"tblParametersummary\" class=\"table table-striped table-bordered\" style=\"width:100%\">"+
+                                   "<thead>"+
+                                       "<tr>"+
+                                           " <th class=\"wd-15p sorting\" style=\"width:1px;\">#</th>"+
+                                           " <th class=\"wd-10p sorting\">Paramete Name</th>"+
+                                           "  <th>Is Active</th>"+
+                                           " <th></th>"+
+                                       "</tr>"+
+                                   "</thead>"+
+                                  " <tbody style=\"box-sizing :border-box;\">" ;
+                                      
+
+                               
+               
+
+                $.each(data, function (i, item) {
+                    table += "    <tr> " +
+                                      "  <td>  " + item.ID + "</td>" +
+                                      "  <td>  " + item.ParameterName + "</td>";
+                    if (item.IsActive) {
+                        table += "  <td >" +
+                                            "<label class=\"custom-control custom-checkbox\">" +
+                                               " <input type=\"checkbox\" class=\"custom-control-input\" disabled id=\"" + item.ParameterID + "\" name=\" " + item.ParameterName + "\" value=\"" + item.IsActive + " \" checked> " +
+                                               " <span class=\"custom-control-label\"> </span> " +
+                                            " </label> " +
+                                      "  </td> ";
+                    } else if (!item.IsActive) {
+                        table += "  <td >" +
+                                            "<label class=\"custom-control custom-checkbox\">" +
+                                               " <input type=\"checkbox\" class=\"custom-control-input\" disabled    id=\"" + item.ParameterID + "\" name=\" " + item.ParameterName + "\" value=\"" + item.IsActive + " \"> " +
+                                               " <span class=\"custom-control-label\"> </span> " +
+                                            " </label> " +
+                                      "  </td> ";
+                    }
+                    table += "  <td class=\"text-center\"> <div class=\"row text-center\">" +
+                        "<a class=\"btn btn-sm btn-success m-1\" id=\"Edit" + item.ParameterID + "\" onclick=\"editParameter(" + item.ParameterID + ")\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"Edit\"><i class=\"fa fa-edit text-white\" ></i> </a>" +
+                        "<a class=\"btn btn-sm btn-success m-1\" id=\"Save" + item.ParameterID + "\" onclick=\"updateParameter(" + item.ParameterID + ")\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"Save\"><i class=\"fa fa-check text-white\" ></i> </a>" +
+                         "<a class=\"btn btn-sm btn-danger m-1\" id=\"Delete" + item.ParameterID + "\" onclick=\"deleteParameter(" + item.ParameterID + ")\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"\" data-original-title=\"Save\"><i class=\"fa fa-trash text-white\" ></i> </a>" +
+                        
+                        "</div></td> " +
+                                   " </tr>";
+                   
+                });
+
+                table += "   </tbody>" +
+                               "</table>"
+
+                //document.getElementById("#parametersummary").innerHTML = table;
+                $("#parametersummary").html(table);
+                $.each(data, function (i, item) {
+                    document.getElementById("Edit" + item.ParameterID).style.display = "none";
+                    document.getElementById("Save" + item.ParameterID).style.display = "none";
+                });
+                $.each(data, function (i, item) {
+                    document.getElementById("Edit" + item.ParameterID).style.display = "block";
+                    document.getElementById("Save" + item.ParameterID).style.display = "none";
+                });
+
+                setTimeout(function () {
+                    $('#tblParametersummary').dataTable({
+                        "bLengthChange": false,
+                        "bInfo": false,
+                        "bPaginate": false,
+                        "bFilter": true,
+                        "paging": false,
+                        "retrieve": true,
+                        "aoColumnDefs": [
+                            {
+                                'bSortable': false,
+                                'aTargets': [2, 3]
+                            }
+                        ]
+
+                    });
+                }, 50);
+                
+
+            }
+        }
+
+        function addParameterForDept() {
+            console.log(JSON.stringify($("#depts").val()))
+            if ($("#txtParameter").val() != "" && $("#txtParameter").val() != undefined) {
+                $.ajax(
+               {
+                   url: "/InspectionList/AddParameterForDept",
+                   data: '{parameterName: ' + JSON.stringify($("#txtParameter").val()) + ', deptID: ' + $("#depts").val() + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       alert("Parameter added sucessfully!");
+                       $("#depts option").val(selectedDeptID)
+                       getParameterLsit(data);
+                       $("#txtParameter").val('');
+                       //console.log(selectedDeptID);
+                       
+                       //console.log(data);
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+            } else {
+                alert("Add a parameter name!");
+            }
+            
+        }
+
+        function editParameter(id) {
+            $('#' + id).removeAttr('disabled');
+            document.getElementById("Save" + id).style.display = "block";
+            document.getElementById("Edit" + id).style.display = "none";
+            //$('#'+id).attr('readonly', false);
+        }
+        function updateParameter(id) {
+         
+            $.ajax(
+              {
+                  url: "/InspectionList/UpdateParameterForDept",
+                  data: '{parameterID: ' + id + ', deptID: ' + $("#depts").val() + ', isActive:' + $("#" + id).is(":checked") + '}',
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  success: function (data) {
+                      getParameterLsit(data);
+
+                  },
+
+                  error: function (message) {
+
+                      alert(JSON.stringify(message.responseText));
+
+
+                  }
+              });
+        }
+
+        function deleteParameter(id) {
+
+            $.ajax(
+              {
+                  url: "/InspectionList/DeleteParameterListForDept",
+                  data: '{parameterID: ' + id + ', deptID: ' + $("#depts").val() + '}',
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  success: function (data) {
+                      getParameterLsit(data); 
+                  },
+
+                  error: function (message) {
+
+                      alert(JSON.stringify(message.responseText));
+
+
+                  }
+              });
+        }
+
+    </script>
+
+
+
+
+

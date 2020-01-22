@@ -2,3 +2,4 @@ D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDBConnector
 D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDBConnector\bin\Debug\FAInspectionModuleMVCDBConnector.pdb
 D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDBConnector\obj\Debug\FAInspectionModuleMVCDBConnector.dll
 D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDBConnector\obj\Debug\FAInspectionModuleMVCDBConnector.pdb
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVCDBConnector\obj\Debug\FAInspectionModuleMVCDBConnector.csprojAssemblyReference.cache

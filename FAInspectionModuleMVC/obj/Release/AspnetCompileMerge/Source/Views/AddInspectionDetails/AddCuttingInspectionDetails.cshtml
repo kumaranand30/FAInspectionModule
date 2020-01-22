@@ -25,7 +25,9 @@
                         <div class="form-group  col-lg-4 col-xl-4 col-md-6 " id="serialLists">
                            
                         </div>
+                        <div class="form-group  col-lg-4 col-xl-4 col-md-6 " id="processLists">
 
+                        </div>
                         <div class="form-group col-lg-4">
                             <label class="form-label">Observation </label>
                             <input type="text" class="form-control" name="Special Instruction" id="SpecialInstruction" placeholder="Observation" id="SplInstruction">
@@ -128,18 +130,20 @@
                     <label class="form-label">Serial no </label>
                     <input type="text" class="form-control" readonly name="updateSerialNO" id="updateSerialNO" placeholder="Serial NO">
                 </div>
+                <div class="form-group  col-lg-4 col-xl-4 col-md-6 " id="updateProcessLists">
 
+                </div>
                 <div class="form-group col-lg-4">
                     <label class="form-label">Observation</label>
                     <input type="text" class="form-control" name="updateSpecialInstruction" id="updateSpecialInstruction" placeholder="Observation " id="SplInstruction">
                 </div>
                 <div class="form-group col-lg-4">
                     <label class="form-label">Checked by </label>
-                    <input type="text" class="form-control" name="updateCheckedby" id="updateCheckedby" placeholder="Checked by ">
+                    <input type="text" class="form-control" readonly name="updateCheckedby" id="updateCheckedby" placeholder="Checked by ">
                 </div>
                 <div class="form-group col-lg-4">
                     <label class="form-label">Verified by </label>
-                    <input type="text" class="form-control" name="updateOperatorName" id="updateOperatorName" placeholder="Operator Name">
+                    <input type="text" class="form-control" readonly name="updateOperatorName" id="updateOperatorName" placeholder="Operator Name">
                     <input type="hidden" id="updateOperatorID" name="updateOperatorID" />
                 </div>
                 
@@ -259,7 +263,7 @@
             //    })
             //});
 
-        };
+    }; 
         function getWONOForCutting() {
             $.ajax(
                {
@@ -348,12 +352,115 @@
                
 
                 $("#serialLists").html(select);
+                getProcessAgainstDepartment();
                 getAutoFillForWO();
                 
             }
            
         }
 
+        function getProcessAgainstDepartment() {
+            $.ajax(
+               {
+                   url: "/AddInspectionDetails/GetProcessAgainstDepartment",
+                   data: '{deptID: ' + deptID + '}',
+                   type: "POST",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                       //console.log(data);
+                       getProcessList(data);
+                   },
+
+                   error: function (message) {
+
+                       alert(JSON.stringify(message.responseText));
+
+
+                   }
+               });
+        }
+        function getProcessList(data) {
+            if (data != null) {
+                var select = "<label class=\"form-label\">Select Item No</label>" +
+                        "<select class=\"form-control  select2-show-search\" data-placeholder=\"Choose one\"   id=\"processList\">";
+                var option = "";
+                $.each(data, function (i, item) {
+
+                    option += " <option value=\"" + item.ProcessID + "\" >" + item.ProcessName + "</option>"
+
+                });
+
+                select += option += "</select>";
+
+
+                $("#processLists").html(select);
+               
+
+            }
+
+        }
+        function getUpdateProcessAgainstDepartment(list) {
+            $.ajax(
+              {
+                  url: "/AddInspectionDetails/GetProcessAgainstDepartment",
+                  data: '{deptID: ' + deptID + '}',
+                  type: "POST",
+                  contentType: "application/json; charset=utf-8",
+                  success: function (data) {
+                      //$("#deptHeaderLBL").text($("#depts option:selected").text());
+                      //console.log(data);
+                      getUpdateProcessList(data,list);
+                  },
+
+                  error: function (message) {
+
+                      alert(JSON.stringify(message.responseText));
+
+
+                  }
+              });
+        }
+
+        function getUpdateProcessList(data,list) {
+            if (data != null) {
+                var select = "<label class=\"form-label\">Select Item No</label>" +
+                        "<select class=\"form-control  select2-show-search\" data-placeholder=\"Choose one\"   id=\"updateProcessList\">";
+                var option = "";
+                $.each(data, function (i, item) {
+
+                    option += " <option value=\"" + item.ProcessID + "\" >" + item.ProcessName + "</option>"
+
+                });
+
+                select += option += "</select>";
+
+
+                $("#updateProcessLists").html(select);
+
+
+            }
+            $.each(list, function (i, item) {
+                if (selecteIDForList == item.ID) {
+
+                    $.each(item.Row, function (j, row) {
+                        if (row.ColumneName == "Process") {
+                            console.log(row.ColumnValue);
+                            $("#updateProcessList option").each(function (opt) {
+                                // Add $(this).val() to your list
+                                $("#updateProcessList option:contains(" + row.ColumnValue + ")").attr('selected', 'selected');
+                                console.log($("#updateProcessList option:contains(" + row.ColumnValue + ")").attr('selected', 'selected'))
+                            });
+                            //$("#updateProcessList").val(row.ColumnValue);
+                            //$('#updateProcessList option:selected').text(row.ColumnValue)
+                            //console.log($('#updateProcessList option:selected').text(row.ColumnValue))
+
+                        }
+                    });
+                }
+
+            });
+        }
         function getAutoFillForWO() {
             getOperatorDetailsforWONO();
         }
@@ -617,7 +724,8 @@
                         "VerificationBY": $("#operatorID").val(),
                        
                         "AddedBY": 0,
-                        "DeptID": deptID
+                        "DeptID": deptID,
+                        "ProcessID": $("#processList").val()
                     }
                     console.log(inspValue);
                     console.log(value);
@@ -737,7 +845,7 @@
                                        "<tr>";
                 var col = "";
                 $.each(data.Column, function (i, item) {
-                    if (item.Name != "ID") {
+                    if (item.Name != "ID"  ) {
                         col += " <th class=\"wd-15p sorting\" style=\"width:1px;\">" + item.Name + "</th>"
                     }
                   
@@ -822,6 +930,7 @@
 
         function getUpdateAutoFillForWO() {
             getUpdateOperatorDetailsforWONO();
+            getProcessAgainstDepartment();
         }
 
         function getUpdateOperatorDetailsforWONO() {
@@ -929,8 +1038,7 @@
         }
         function getUpdateAutoFillDetails(data) {
             if (data != null) {
-                //______Remarks__
-                console.log(data);
+                //______Remarks__ 
                 $("#updateglassDescription").val(data.Description);
                 $("#updateactualHeight").val(data.Height);
                 $("#updateactualWidth").val(data.Width);
@@ -949,14 +1057,14 @@
             selecteIDForList = id;
             document.getElementById("summaryDetails").style.display = "none";
             document.getElementById("updateDetails").style.display = "block";
+           
             $("#list").show(); 
             $("#add").hide();
             //$("#summaryDetails").show();
 
             $.each(listOFInspec.Row, function (i, item) {
                 if (id == item.ID) {
-                    
-                    console.log(item);
+                     
                     $.each(item.Row, function (j, row) {
                         if (row.ColumneName == "Work Order No.") {
                             $("#updateWONO").val(row.ColumnValue);
@@ -973,9 +1081,9 @@
                         if (row.ColumneName == "Checked By") {
                             $("#updateCheckedby").val(row.ColumnValue);
                         }
-                      
+                        
 
-                        getUpdateAutoFillForWO();
+                       
                         //$.each(parameterList, function (k, param) {
                         //    if (row.ColumneName.toLowerCase().trim() == param.ParameterName.toLowerCase().trim()) {
                         //        var name = "update" +param.ParameterName.replace(/ +/g, "").trim() + param.ParameterID;
@@ -989,8 +1097,10 @@
                 }
                 
             });
-           
+            getUpdateAutoFillForWO();
+            getUpdateProcessAgainstDepartment(listOFInspec.Row);
             
+           
         }
         function updateInspection(id) {
             //console.log(parameterList);
@@ -1023,7 +1133,8 @@
                         "VerificationBY": $("#updateOperatorID").val(),
                         "CheckedBY": $("#updateCheckedby").val(),
                         "AddedBY": 0,
-                        "DeptID": deptID
+                        "DeptID": deptID,
+                        "ProcessID": $("#updateProcessList").val()
                     }
                      
                     $.ajax(

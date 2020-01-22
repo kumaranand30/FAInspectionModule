@@ -191,13 +191,28 @@
                                 <i class="fa fa-th-list  mr-2"></i>Add Inspection Dept. wise
                             </a>
                             <ul class="collapse list-unstyled" onclick="setDefaultHeight()" id="homeSubmenu1" data-parent="#accordion">
+                                @*@foreach (var menu in @ViewBag.Menulist)
+                                {
+                                    @*<li>
+                                        <a href="/@menu.ControllerName/@menu.Action">
+                                            <span>@menu.MenuText</span>
+                                        </a>
+                                    </li> 
+                                    
+                                    <li>
+                                        <a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "@menu.DeptName" })">@menu.DeptName</a>
+                                    </li>
+
+                                }*@
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Cutting & Arising" })">Cutting & Arising</a></li>
                                 
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Fabrication" })">Fabrication</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Ceramic" })">Ceramic</a></li>
+                                <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Tempering" })">Tempering</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Lamination" })">Lamination</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Insulated Glass" })">Insulated Glass</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Heat Soak" })">Heat Soak</a></li>
+                            
                             </ul>
                         </li>
 

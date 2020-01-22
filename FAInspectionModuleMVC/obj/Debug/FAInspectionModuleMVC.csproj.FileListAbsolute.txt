@@ -9,6 +9,7 @@ D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\bin\FAInsp
 D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\bin\FAInspectionModuleMVCEntities.pdb
 D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\bin\FAInspectionModuleMVCDataLayer.pdb
 D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\bin\FAInspectionModuleMVCDBConnector.pdb
-D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\obj\Debug\FAInspectionModuleMVC.csprojResolveAssemblyReference.cache
 D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\obj\Debug\FAInspectionModuleMVC.dll
 D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\obj\Debug\FAInspectionModuleMVC.pdb
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\obj\Debug\FAInspectionModuleMVC.csprojAssemblyReference.cache
+D:\Monisha Pillai\Project\FAInspectionModuleMVC\FAInspectionModuleMVC\obj\Debug\FAInspectionModuleMVC.csproj.CopyComplete

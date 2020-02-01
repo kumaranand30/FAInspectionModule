@@ -80,7 +80,7 @@
                                         Visitor Management System
                                     </span>*@
                                 <span class="font-weight-semibold" style="font-size: 25px;color: white;">
-                                    FA 
+                                    FA
                                 </span>
                             </a>
 
@@ -192,27 +192,27 @@
                             </a>
                             <ul class="collapse list-unstyled" onclick="setDefaultHeight()" id="homeSubmenu1" data-parent="#accordion">
                                 @*@foreach (var menu in @ViewBag.Menulist)
-                                {
-                                    @*<li>
-                                        <a href="/@menu.ControllerName/@menu.Action">
-                                            <span>@menu.MenuText</span>
-                                        </a>
-                                    </li> 
-                                    
-                                    <li>
-                                        <a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "@menu.DeptName" })">@menu.DeptName</a>
-                                    </li>
+                                    {
+                                        @*<li>
+                                            <a href="/@menu.ControllerName/@menu.Action">
+                                                <span>@menu.MenuText</span>
+                                            </a>
+                                        </li>
 
-                                }*@
+                                        <li>
+                                            <a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "@menu.DeptName" })">@menu.DeptName</a>
+                                        </li>
+
+                                    }*@
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Cutting & Arising" })">Cutting & Arising</a></li>
-                                
+
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Fabrication" })">Fabrication</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Ceramic" })">Ceramic</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Tempering" })">Tempering</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Lamination" })">Lamination</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Insulated Glass" })">Insulated Glass</a></li>
                                 <li><a href="@Url.Action("AddCuttingInspectionDetails", "AddInspectionDetails", new { name = "Heat Soak" })">Heat Soak</a></li>
-                            
+
                             </ul>
                         </li>
 
@@ -223,7 +223,7 @@
                             <ul class="collapse list-unstyled" onclick="setDefaultHeight()" id="homeSubmenu2" data-parent="#accordion">
                                 <li><a href="/Reports/ReportView">Department Wise</a></li>
 
-                              </ul>
+                            </ul>
                         </li>
 
                     </ul>
@@ -326,7 +326,7 @@
     <!-- Data tables -->
     <script src="~/plugins/datatable/jquery.dataTables.min.js"></script>
     <script src="~/plugins/datatable/dataTables.bootstrap4.min.js"></script>
-
+    <link href="~/assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
     <!-- Select2 js -->
     <script src="~/plugins/select2/select2.full.min.js"></script>
@@ -434,19 +434,19 @@
                     $('.datepicker').hide();
                 });
             $('#txtigmdate')
-           .datepicker({
-               autoclose: true,
-               todayHighlight: true,
-               format: 'dd M yyyy',
-               language: "tr",
-               changeMonth: true,
-               changeYear: true,
-           })
-           .on('changeDate', function (e) {
-               // Revalidate the date field
-               // $('#eventForm').formValidation('revalidateField', 'date');
-               //$('.datepicker').hide();
-           });
+                .datepicker({
+                    autoclose: true,
+                    todayHighlight: true,
+                    format: 'dd M yyyy',
+                    language: "tr",
+                    changeMonth: true,
+                    changeYear: true,
+                })
+                .on('changeDate', function (e) {
+                    // Revalidate the date field
+                    // $('#eventForm').formValidation('revalidateField', 'date');
+                    //$('.datepicker').hide();
+                });
 
         });
     </script>
@@ -463,11 +463,11 @@
                 forceParse: true,
                 endDate: currDate
             })
-             .on('changeDate', function (e) {
-                 // Revalidate the date field
-                 // $('#eventForm').formValidation('revalidateField', 'date');
-                 $('.datetimepicker').hide();
-             });
+                .on('changeDate', function (e) {
+                    // Revalidate the date field
+                    // $('#eventForm').formValidation('revalidateField', 'date');
+                    $('.datetimepicker').hide();
+                });
             ;
         });
     </script>

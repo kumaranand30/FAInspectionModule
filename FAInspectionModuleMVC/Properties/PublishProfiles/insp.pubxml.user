@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 15:04:52</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>01/20/2020 15:21:52</publishTime>
+      <publishTime>01/31/2020 16:12:47</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>01/20/2020 15:21:52</publishTime>
+      <publishTime>01/31/2020 16:12:47</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>11/22/2019 15:04:54</publishTime>
@@ -25,34 +25,34 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 15:04:54</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVC.dll">
-      <publishTime>01/20/2020 15:21:48</publishTime>
+      <publishTime>01/31/2020 16:12:44</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVC.pdb">
-      <publishTime>01/20/2020 15:21:48</publishTime>
+      <publishTime>01/31/2020 16:12:44</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVCBusinessLayer.dll">
-      <publishTime>01/20/2020 15:21:47</publishTime>
+      <publishTime>01/31/2020 16:12:08</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVCBusinessLayer.pdb">
-      <publishTime>01/20/2020 15:21:47</publishTime>
+      <publishTime>01/31/2020 16:12:08</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVCDataLayer.dll">
-      <publishTime>01/20/2020 15:21:46</publishTime>
+      <publishTime>01/31/2020 16:12:08</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVCDataLayer.pdb">
-      <publishTime>01/20/2020 15:21:46</publishTime>
+      <publishTime>01/31/2020 16:12:08</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVCDBConnector.dll">
-      <publishTime>01/20/2020 15:21:46</publishTime>
+      <publishTime>01/31/2020 16:12:07</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVCDBConnector.pdb">
-      <publishTime>01/20/2020 15:21:46</publishTime>
+      <publishTime>01/31/2020 16:12:07</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVCEntities.dll">
-      <publishTime>01/20/2020 15:21:46</publishTime>
+      <publishTime>01/31/2020 16:12:07</publishTime>
     </File>
     <File Include="bin/FAInspectionModuleMVCEntities.pdb">
-      <publishTime>01/20/2020 15:21:46</publishTime>
+      <publishTime>01/31/2020 16:12:07</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>11/22/2019 15:04:56</publishTime>
@@ -2374,7 +2374,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/06/2019 11:37:16</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>01/20/2020 15:21:49</publishTime>
+      <publishTime>01/31/2020 16:12:45</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>03/06/2019 11:37:00</publishTime>
@@ -2458,7 +2458,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 15:04:53</publishTime>
     </File>
     <File Include="Views/AddInspectionDetails/AddCuttingInspectionDetails.cshtml">
-      <publishTime>01/18/2020 19:16:15</publishTime>
+      <publishTime>01/31/2020 16:05:57</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>11/22/2019 15:04:49</publishTime>
@@ -2482,7 +2482,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2019 10:35:35</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutDashboard.cshtml">
-      <publishTime>01/18/2020 15:48:11</publishTime>
+      <publishTime>01/27/2020 18:15:46</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>11/22/2019 15:04:53</publishTime>
@@ -2494,7 +2494,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/22/2019 15:04:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/20/2020 15:21:48</publishTime>
+      <publishTime>01/31/2020 16:12:45</publishTime>
     </File>
   </ItemGroup>
 </Project>

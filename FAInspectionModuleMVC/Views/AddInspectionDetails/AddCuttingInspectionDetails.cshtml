@@ -654,7 +654,7 @@
                     if (item.IsActive) {
                         table += " <tr> <td >" +  item.ParameterName +  "  </td> "+
                          "  <td >" +
-                         " <input type=\"text\"id=\"" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID + "\"class=\"form-control  \" name=\"" + item.ParameterName + "\" placeholder=\"" + item.ParameterName + "\">" +
+                         " <input type=\"text\"id=\"" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_") + item.ParameterID + "\"class=\"form-control  \" name=\"" + item.ParameterName + "\" placeholder=\"" + item.ParameterName + "\">" +
                          "  </td> </tr>";
                     }
                 });
@@ -692,12 +692,15 @@
             var value = [];
             var inspValue ;
             $.each(parameterList, function (i, item) {
-               
+                console.log((item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_") + item.ParameterID));
                 value.push({
                     "ParamID": item.ParameterID,
-                    "ParamValue": $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID)).val()
-                })
-                if ($("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID)).val() == "" || $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID)).val() == null) {
+                    "ParamValue": $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_") + item.ParameterID)).val()
+                });
+               
+                 //console.log((item.ParameterName.replace(/[^a-z0-9\s]/gi, '_')  + item.ParameterID));
+                //console.log($("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "") + item.ParameterID)).val());
+                if ($("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_") + item.ParameterID)).val() == "" || $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_") + item.ParameterID)).val() == null) {
                       value = [];
                 }
                 //console.log($("#" + (item.ParameterName.replace(/ +/g, "") + item.ParameterID)).val());
@@ -779,7 +782,7 @@
             $("#OperatorName").val('');
             $("#Checkedby").val('');
             $.each(parameterList, function (i, item) {
-                $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID)).val();
+                $("#" + (item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_") + item.ParameterID)).val();
                 //console.log($("#" + (item.ParameterName.replace(/ +/g, "") + item.ParameterID)).val());
             });
           
@@ -790,7 +793,7 @@
             $("#updateCheckedby").val('');
             $("#updateOperatorName").val('');
             $.each(parameterList, function (i, item) {
-                var name = "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + item.ParameterID;
+                var name = "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_").trim() + item.ParameterID;
                                     
                 $("#" + name).val('');
                 document.getElementById(name).value = ""
@@ -1111,9 +1114,9 @@
                
                 value.push({
                     "ParamID": item.ParameterID,
-                    "ParamValue": $("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + item.ParameterID).val()
+                    "ParamValue": $("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_").trim() + item.ParameterID).val()
                 })
-                if ($("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + item.ParameterID).val() == "" || $("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + item.ParameterID).val() == null) {
+                if ($("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_").trim() + item.ParameterID).val() == "" || $("#" + "update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_").trim() + item.ParameterID).val() == null) {
                     value = [];
                 }
                 
@@ -1255,7 +1258,7 @@
                     if (item.IsActive) {
                         table += " <tr> <td >" + item.ParameterName + "  </td> " +
                          "  <td >" +
-                         " <input type=\"text\"id=\"update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_") + item.ParameterID + "\"class=\"form-control  \" name=\"" + item.ParameterName + "\" placeholder=\"" + item.ParameterName + "\">" +
+                         " <input type=\"text\"id=\"update" + item.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_") + item.ParameterID + "\"class=\"form-control  \" name=\"" + item.ParameterName + "\" placeholder=\"" + item.ParameterName + "\">" +
                          "  </td> </tr>";
                     }
                 });
@@ -1271,7 +1274,7 @@
                             
                             $.each(parameterList, function (k, param) {
                                 if (row.ColumneName.toLowerCase().trim() == param.ParameterName.toLowerCase().trim()) {
-                                    var name = "update" + param.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").trim() + param.ParameterID;
+                                    var name = "update" + param.ParameterName.replace(/["'()]/g, "_").replace(/ /g, "_").replace(/,/g, "").replace("/", "_").replace(".", "_").trim() + param.ParameterID;
                                     
                                     $("#" + name).val("'" + row.ColumnValue + "'");
                                     document.getElementById(name).value = row.ColumnValue;
